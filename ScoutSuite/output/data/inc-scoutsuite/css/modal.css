@@ -3,7 +3,7 @@
 }
 
 .modal-header {
-    background-color: #2C3E50;
+    background-color: #0080FF;
     border-radius: 3px 3px 0 0;
     color: white;
 }
@@ -16,7 +16,7 @@
 
 .modal-header {
     height: 65px;
-    background: #414042;
+    background: #0080FF;
 }
 
 .modal-body {
