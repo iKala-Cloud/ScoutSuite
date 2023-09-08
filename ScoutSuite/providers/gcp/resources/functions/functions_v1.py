@@ -39,6 +39,7 @@ class FunctionsV1(Resources):
         function_dict['environment_variables'] = raw_function.get('environmentVariables', {})
         function_dict['environment_variables_secrets'] = get_environment_secrets(function_dict['environment_variables'])
 
-        function_dict['labels'] = raw_function['labels']
+        # [fix]  failed to fetch labels
+        # function_dict['labels'] = raw_function['labels']
 
         return function_dict['id'], function_dict
