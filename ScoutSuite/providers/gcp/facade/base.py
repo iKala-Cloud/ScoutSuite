@@ -15,6 +15,7 @@ from ScoutSuite.providers.gcp.facade.stackdriverlogging import StackdriverLoggin
 from ScoutSuite.providers.gcp.facade.stackdrivermonitoring import StackdriverMonitoringFacade
 from ScoutSuite.providers.gcp.facade.gke import GKEFacade
 from ScoutSuite.providers.gcp.facade.functions import FunctionsFacade
+from ScoutSuite.providers.gcp.facade.cloudrun import CloudrunFacade
 from ScoutSuite.providers.gcp.facade.bigquery import BigQueryFacade
 from ScoutSuite.providers.gcp.facade.utils import GCPFacadeUtils
 from ScoutSuite.utils import format_service_name
@@ -37,6 +38,7 @@ class GCPFacade(GCPBaseFacade):
         self.memorystoreredis = MemoryStoreRedisFacade()
         self.gce = GCEFacade()
         self.functions = FunctionsFacade()
+        self.cloudrun = CloudrunFacade()
         self.bigquery = BigQueryFacade()
         self.iam = IAMFacade()
         self.kms = KMSFacade()
@@ -215,6 +217,8 @@ class GCPFacade(GCPBaseFacade):
             endpoint = 'compute'
         elif service == 'Functions':
             endpoint = 'cloudfunctions'
+        elif service == 'Run':
+            endpoint = 'run'
         elif service == 'BigQuery':
             endpoint = 'bigquery'
             incorrect_endpoints.append('annotation-bigquery-public-data.cloudpartnerservices.goog')

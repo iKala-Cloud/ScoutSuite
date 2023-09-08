@@ -62,6 +62,7 @@ formatted_service_name = {
     'computeengine': 'Compute Engine',
     'kubernetesengine': 'Kubernetes Engine',
     'functions': 'Cloud Functions',
+    'run': 'Cloud Run',
     'bigquery': 'BigQuery',
     # Aliyun
     'actiontrail': 'ActionTrail',

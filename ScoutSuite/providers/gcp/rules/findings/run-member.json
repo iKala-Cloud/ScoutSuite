@@ -1,0 +1,22 @@
+{
+    "description": "Cloud Run Accessible by \"_ARG_0_\"",
+    "rationale": "Allowing anonymous and/or public access grants permissions to anyone to access the Cloud Run's configuration and content. This configuration should be restricted to follow the principle of least privilege",
+    "references": [
+        "https://cloud.google.com/logging/docs/reference/audit/appengine/rest/Shared.Types/SecurityLevel"
+    ],
+    "dashboard_name": "Cloud Run",
+    "path": "run.projects.id.services.id",
+    "conditions": [
+        "or",
+        [
+            "run.projects.id.services.id.bindings",
+            "containString",
+            "_ARG_0_"
+        ]
+    ],
+    "key": "cloudrun-instances-_ARG_0_",
+    "arg_names": [
+        "member"
+    ],
+    "id_suffix": "bindings"
+}

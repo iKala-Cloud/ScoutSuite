@@ -1,0 +1,15 @@
+{
+    "description": "Public Cloud Run Endpoint",
+    "rationale": "The Cloud Run's ingress configuration allowed all traffic, potentially exposing undesired functionality. It is recommended that traffic reaching cloud run be routed via a load balancer, to minimize the attack surface.",
+    "dashboard_name": "Cloud Run",
+    "path": "run.projects.id.services.id",
+    "conditions": [
+        "or",
+        [
+            "run.projects.id.services.id.ingress_settings",
+            "equal",
+            "all"
+        ]
+    ],
+    "id_suffix": "ingress_settings"
+}

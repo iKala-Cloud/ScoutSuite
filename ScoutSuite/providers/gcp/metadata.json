@@ -89,6 +89,18 @@
           "path": "services.functions.projects.id.functions_v2"
         }
       }
+    },
+    "run": {
+      "resources": {
+        "services": {
+          "cols": 2,
+          "path": "services.run.projects.id.services"
+        },
+        "jobs": {
+          "cols": 2,
+          "path": "services.run.projects.id.jobs"
+        }
+      }
     }
   },
   "network": {
