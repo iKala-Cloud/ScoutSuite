@@ -1,0 +1,15 @@
+FROM python:3.11.5-slim-bullseye
+
+RUN apt-get update && \
+    apt-get install -y git && \
+    rm -rf /var/lib/apt/lists/* 
+
+RUN git clone --branch ikala-init https://github.com/iKala-Cloud/ScoutSuite.git /ScoutSuite && \
+    python3 -m compileall /ScoutSuite -b && \
+    find /ScoutSuite -name '*.py' -type f -exec rm {} \;
+
+WORKDIR /ScoutSuite
+
+RUN pip install -r requirements.txt
+
+CMD ["/bin/bash"]
