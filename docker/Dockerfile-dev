@@ -1,15 +1,26 @@
-FROM python:3.11.5-slim-bullseye
+FROM debian:11-slim AS build
 
 RUN apt-get update && \
-    apt-get install -y git && \
-    rm -rf /var/lib/apt/lists/* 
+    apt-get install -y git python3-venv && \
+    python3 -m venv /venv && \
+    /venv/bin/pip install --upgrade pip setuptools wheel && \
+    rm -rf /var/lib/apt/lists/*  
 
-RUN git clone --branch ikala-init https://github.com/iKala-Cloud/ScoutSuite.git /ScoutSuite && \
+# Build the virtualenv as a separate step: Only re-execute this step when requirements.txt changes
+FROM build AS build-venv
+COPY ScoutSuite/ /ScoutSuite/ScoutSuite
+COPY scout.py requirements.txt /ScoutSuite
+RUN  /venv/bin/pip install --disable-pip-version-check -r /ScoutSuite/requirements.txt && \
     python3 -m compileall /ScoutSuite -b && \
     find /ScoutSuite -name '*.py' -type f -exec rm {} \;
 
+# Copy the virtualenv into a distroless image
+FROM gcr.io/distroless/python3-debian11
+
+COPY --from=build-venv /venv /venv
+COPY --from=build-venv /ScoutSuite /ScoutSuite 
+COPY --from=busybox:1.35.0-uclibc /bin/sh /bin/sh
+
 WORKDIR /ScoutSuite
 
-RUN pip install -r requirements.txt
-
-CMD ["/bin/bash"]
+ENTRYPOINT ["/bin/sh"]
